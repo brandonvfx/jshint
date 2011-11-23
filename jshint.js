@@ -320,8 +320,9 @@ var JSHINT = (function () {
             validthis   : true, // if 'this' inside a non-constructor function is valid.
                                 // This is a function scoped option only.
             white       : true, // if strict whitespace rules apply
-            wsh         : true  // if the Windows Scripting Host environment globals
+            wsh         : true, // if the Windows Scripting Host environment globals
                                 // should be predefined
+            global_func : true  // if global functions should be flagged.
         },
 
         // browser contains a set of global names which are commonly provided by a
@@ -2643,7 +2644,7 @@ loop:   for (;;) {
                 // the base object of a reference is null so no need to display warning
                 // if we're inside of typeof or delete.
                 if (anonname != 'typeof' && anonname != 'delete' &&
-                    option.undef && typeof predefined[v] !== 'boolean') {
+                    option.undef && typeof predefined[v] !== 'boolean' && option.global_func) {
                     warning("'{a}' is not defined.", token, v);
                 }
                 note_implied(token);
